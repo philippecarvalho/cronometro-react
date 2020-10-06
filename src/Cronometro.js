@@ -5,7 +5,61 @@ class Cronometro extends Component {
     state = {
         timerLigado: false,
         timerInicio: 0,
-        timerTempo: 0
+        timerTempo: 0,
+        parcialCount: 0,
+        parcialValue: []
+    }
+
+    handleClick = () => {
+        this.setState({ parcialCount: this.state.parcialCount + 1 })
+        this.setState({ parcialValue: this.state.parcialValue.concat(this.state.timerTempo) })
+    }
+
+    getParcial = () => {
+        let parcial = [];
+
+        for (let i = 0; i < this.state.parcialCount; i++) {
+            const valores = this.getTempo(this.state.parcialValue[i])
+
+            let valoresDiferenca = this.getTempo(this.state.parcialValue[i])
+
+            if (i !== 0)
+                valoresDiferenca = this.getTempo(this.state.parcialValue[i] - this.state.parcialValue[i - 1])
+
+            parcial.push(
+                <div className="parcialContainer">
+                    <ul>
+                        <li className="parcialContador">
+                            <span>{i + 1}</span>
+                        </li>
+
+                        <li className="parcialAnterior">
+                            +<span>{valoresDiferenca.horas}:</span>
+                            <span>{valoresDiferenca.minutos}:</span>
+                            <span>{valoresDiferenca.segundos}:</span>
+                            <span>{valoresDiferenca.centesimos}</span>
+                        </li>
+
+                        <li className="parcialAtual">
+                            <span>{valores.horas}:</span>
+                            <span>{valores.minutos}:</span>
+                            <span>{valores.segundos}:</span>
+                            <span>{valores.centesimos}</span>
+                        </li>
+                    </ul>
+                </div>
+            )
+        }
+        return parcial;
+    }
+
+    getTempo = (tempoTotal) => {
+        let centesimos = ("0" + (Math.floor(tempoTotal / 10) % 100)).slice(-2)
+        let segundos = ("0" + (Math.floor(tempoTotal / 1000) % 60)).slice(-2)
+        let minutos = ("0" + (Math.floor(tempoTotal / 60000) % 60)).slice(-2)
+        let horas = ("0" + Math.floor(tempoTotal / 3600000)).slice(-2)
+
+        return ({ centesimos, segundos, minutos, horas })
     }
 
     iniciarTimer = () => {
@@ -30,26 +84,27 @@ class Cronometro extends Component {
     resetTimer = () => {
         this.setState({
             timerInicio: 0,
-            timerTempo: 0
+            timerTempo: 0,
+            parcialCount: 0,
+            parcialValue: []
         })
     }
 
     render() {
+
         const { timerTempo } = this.state;
-        let centissegundos = ("0" + (Math.floor(timerTempo / 10) % 100)).slice(-2)
-        let segundos = ("0" + (Math.floor(timerTempo / 1000) % 60)).slice(-2)
-        let minutos = ("0" + (Math.floor(timerTempo / 60000) % 60)).slice(-2)
-        let horas = ("0" + Math.floor(timerTempo / 3600000)).slice(-2)
+        let valores = this.getTempo(timerTempo)
 
         return (
             <div className="Cronometro">
                 <div className="Cronometro-header">Cronômetro</div>
                 <div className="Cronometro-display">
-                    <span>{horas}:</span>
-                    <span>{minutos}:</span>
-                    <span>{segundos}:</span>
-                    <span>{centissegundos}</span>
+                    <span>{valores.horas}:</span>
+                    <span>{valores.minutos}:</span>
+                    <span>{valores.segundos}:</span>
+                    <span>{valores.centesimos}</span>
                 </div>
+
 
                 {this.state.timerLigado === false && this.state.timerTempo === 0 && (
                     <button onClick={this.iniciarTimer}>Iniciar</button>
@@ -57,6 +112,10 @@ class Cronometro extends Component {
                 {this.state.timerLigado === true && (
                     <button onClick={this.pararTimer}>Pausar</button>
                 )}
+                {this.state.timerLigado === true && (
+                    <button onClick={this.handleClick}>Parcial</button>
+                )}
+
                 {this.state.timerLigado === false && this.state.timerTempo > 0 && (
                     <button onClick={this.iniciarTimer}>Continuar</button>
                 )}
@@ -64,7 +123,9 @@ class Cronometro extends Component {
                     <button onClick={this.resetTimer}>Resetar</button>
                 )}
 
-                <h5>Philippe Carvalho</h5>
+                <div>
+                    {this.getParcial()}
+                </div>
 
             </div>
         )
