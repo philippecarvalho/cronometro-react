@@ -1,7 +1,16 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 body {
   background-color: #1e88e5;
   font-family: 'Kumbh Sans', sans-serif;
-
 }
 
 .App {
@@ -82,4 +91,20 @@ h5 {
 
 .parcialAtual {
   width: 110px;
+}
+
+.temporizadorInput {
+  width: 62px;
+  height: 54px;
+  font-size: 50px;
+  text-align: center;
+  border: none;
+}
+            
+.temporizadorInput:focus {
+  outline: none;
+}
+
+.temporizadorInpuntWrapper {
+  margin: 0 0 20px 0;
 }
