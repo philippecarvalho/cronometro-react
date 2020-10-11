@@ -97,7 +97,6 @@ class Cronometro extends Component {
 
         return (
             <div className="Cronometro">
-                <div className="Cronometro-header">Cronômetro</div>
                 <div className="Cronometro-display">
                     <span>{valores.horas}:</span>
                     <span>{valores.minutos}:</span>

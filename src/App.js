@@ -12,14 +12,13 @@ class App extends Component {
       <div className="App">
         <Tabs>
           <TabList>
-            <Tab>Relógio</Tab>
-            <Tab>Cronômetro</Tab>
             <Tab>Temporizador</Tab>
+            <Tab>Cronômetro</Tab>
+            <Tab>Relógio</Tab>
           </TabList>
 
-
           <TabPanel>
-            <h2>Em desenvolvimento</h2>
+            <Temporizador />
           </TabPanel>
 
           <TabPanel>
@@ -27,8 +26,9 @@ class App extends Component {
           </TabPanel>
 
           <TabPanel>
-            <Temporizador />
+            <h2>Em desenvolvimento</h2>
           </TabPanel>
+
 
         </Tabs>
       </div>
