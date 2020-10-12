@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import "./App.css"
 
+import { MdStop, MdPlayArrow, MdPause } from "react-icons/md";
+
 class Temporizador extends Component {
     constructor() {
         super();
@@ -23,8 +25,6 @@ class Temporizador extends Component {
         const timerSegundos = this.state.segundos * 1000
         const timerMinutos = this.state.minutos * 60000
         const timerHoras = this.state.horas * 3600000
-
-        console.log(timerSegundos + " " + timerMinutos + " " + timerMinutos)
 
         this.setState({
             countdown: true,
@@ -73,6 +73,9 @@ class Temporizador extends Component {
     resetTimer = () => {
         this.setState({
             timerInicio: 0,
+            horas: 0,
+            minutos: 0,
+            segundos: 0,
             timerLigado: false,
             countdown: false
         })
@@ -87,7 +90,7 @@ class Temporizador extends Component {
     getCountdown = () => {
         let countdown = []
 
-        const tempoTotal = this.state.timerInicio;
+        const tempoTotal = this.state.timerInicio
 
         let segundos = ("0" + (Math.floor(tempoTotal / 1000) % 60)).slice(-2)
         let minutos = ("0" + (Math.floor(tempoTotal / 60000) % 60)).slice(-2)
@@ -117,7 +120,6 @@ class Temporizador extends Component {
                         type="number"
                         name="horas"
                         placeholder="00"
-                        //value={this.state.horas}
                         onChange={this.handleChange}
                     />
 
@@ -129,7 +131,6 @@ class Temporizador extends Component {
                         type="number"
                         name="minutos"
                         placeholder="00"
-                        //value={this.state.minutos}
                         onChange={this.handleChange}
                     />
 
@@ -141,7 +142,6 @@ class Temporizador extends Component {
                         type="number"
                         name="segundos"
                         placeholder="00"
-                        //value={this.state.segundos}
                         onChange={this.handleChange}
                     />
                 </div>
@@ -152,32 +152,27 @@ class Temporizador extends Component {
     }
 
     render() {
-
         return (
             <div className="Cronometro">
-
-
                 {this.getCountdownInput()}
 
                 {this.getCountdown()}
 
-
                 {this.state.timerLigado === false && this.state.timerInicio === 0 && (
-                    <button onClick={this.handleSubmit}>Iniciar</button>
+                    <button onClick={this.handleSubmit}><MdPlayArrow /></button>
                 )}
 
                 {this.state.timerLigado === true && (
-                    <button onClick={this.pararTimer}>Pausar</button>
+                    <button onClick={this.pararTimer}><MdPause /></button>
                 )}
 
                 {this.state.timerLigado === true && (
-                    <button onClick={this.resetTimer}>Parar</button>
+                    <button onClick={this.resetTimer}><MdStop /></button>
                 )}
 
                 {this.state.timerLigado === false && this.state.timerInicio > 0 && (
-                    <button onClick={this.iniciarTimer}>Continuar</button>
+                    <button onClick={this.iniciarTimer}><MdPlayArrow /></button>
                 )}
-
             </div>
         )
     }

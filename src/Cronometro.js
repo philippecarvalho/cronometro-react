@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 import "./App.css"
 
+import { MdStop, MdPlayArrow, MdPause, MdFlag } from "react-icons/md"
+
 class Cronometro extends Component {
     state = {
         timerLigado: false,
@@ -106,20 +108,20 @@ class Cronometro extends Component {
 
 
                 {this.state.timerLigado === false && this.state.timerTempo === 0 && (
-                    <button onClick={this.iniciarTimer}>Iniciar</button>
+                    <button onClick={this.iniciarTimer}><MdPlayArrow /></button>
                 )}
                 {this.state.timerLigado === true && (
-                    <button onClick={this.pararTimer}>Pausar</button>
+                    <button onClick={this.handleClick}><MdFlag /></button>
                 )}
                 {this.state.timerLigado === true && (
-                    <button onClick={this.handleClick}>Parcial</button>
+                    <button onClick={this.pararTimer}><MdPause /></button>
                 )}
 
                 {this.state.timerLigado === false && this.state.timerTempo > 0 && (
-                    <button onClick={this.iniciarTimer}>Continuar</button>
+                    <button onClick={this.iniciarTimer}><MdPlayArrow /></button>
                 )}
                 {this.state.timerLigado === false && this.state.timerTempo > 0 && (
-                    <button onClick={this.resetTimer}>Resetar</button>
+                    <button onClick={this.resetTimer}><MdStop /></button>
                 )}
 
                 <div>
