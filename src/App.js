@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Cronometro from "./Cronometro"
 import Temporizador from "./Temporizador"
+import Relogio from "./Relogio"
 import "./App.css"
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -26,9 +27,8 @@ class App extends Component {
           </TabPanel>
 
           <TabPanel>
-            <h2>Em desenvolvimento</h2>
+            <Relogio />
           </TabPanel>
-
 
         </Tabs>
       </div>

@@ -29,7 +29,7 @@ body {
   width: 500px;
   height: auto;
   border-radius: 5px;
-  padding: 40px 0;
+  padding: 40px 0 10px 0;
   box-sizing: border-box;
 }
 
@@ -53,13 +53,14 @@ body {
 
 button {
   width: 67px;
-  height: 50px;
-  font-size: 43px;
+  height: 54px;
+  font-size: 38px;
   color: #fff;
   background-color: #1e88e5;
   border: 1px solid white;
   border-radius: 5px;
   margin: 10px 10px 0 10px;
+  padding: 7px 0;
 }
 
 h5 {
@@ -107,4 +108,36 @@ h5 {
 
 .temporizadorInpuntWrapper {
   margin: 0 0 20px 0;
+}
+
+.hora-principal {
+  font-size: 62px;
+}
+
+.data-atual {
+  color: #2b2b2b;
+}
+
+.timezones {
+  width: 300px;
+  margin: 0 auto;
+  text-align: right;
+}
+
+.timezones ul {
+  padding: 0;
+}
+
+.timezones ul li {
+  list-style: none;
+  margin: 0 0 15px 0;
+}
+
+.timezones ul li span{
+  font-weight: 600;
+  float: left;
+}
+
+.react-tabs__tab-list {
+  margin: 0 !important;
 }
