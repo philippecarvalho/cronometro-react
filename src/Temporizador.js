@@ -3,6 +3,9 @@ import "./App.css"
 
 import { MdStop, MdPlayArrow, MdPause } from "react-icons/md";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 class Temporizador extends Component {
     constructor() {
         super();
@@ -19,6 +22,24 @@ class Temporizador extends Component {
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    notify = () => toast.info('O tempo acabou', {
+        position: "top-center",
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+    });
+
+    notificacaoRequest() {
+        if (!("Notificação" in window)) {
+            console.log("Esse navegador não tem suporte a notificações");
+        } else {
+            Notification.requestPermission();
+        }
     }
 
     handleSubmit = () => {
@@ -55,10 +76,19 @@ class Temporizador extends Component {
             }
             if (timerInicio === 0) {
                 clearInterval(this.temporizador)
+
+                if (this.state.timerLigado) {
+                    new Notification('O tempo acabou')
+                    this.notify()
+                }
+
                 this.setState({
                     countdown: false,
                     timerInicio: 0,
-                    timerLigado: false
+                    timerLigado: false,
+                    horas: 0,
+                    minutos: 0,
+                    segundos: 0
                 })
             }
         }, 1000)
@@ -113,7 +143,19 @@ class Temporizador extends Component {
 
         if (!this.state.countdown) {
             countdownInput.push(
-                <div className="temporizadorInpuntWrapper">
+                <div className="temporizadorInpuntWrapper" >
+                    <ToastContainer
+                        position="top-center"
+                        autoClose={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                    />
+
+                    <span>Preencha o tempo desejado</span><br /><br />
+
                     <input className="temporizadorInput"
                         maxLength="2"
                         onInput={this.maxLengthCheck}
@@ -125,7 +167,7 @@ class Temporizador extends Component {
 
                     :
 
-                    <input className="temporizadorInput"
+                <input className="temporizadorInput"
                         maxLength="2"
                         onInput={this.maxLengthCheck}
                         type="number"
@@ -136,7 +178,7 @@ class Temporizador extends Component {
 
                     :
 
-                    <input className="temporizadorInput"
+                <input className="temporizadorInput"
                         maxLength="2"
                         onInput={this.maxLengthCheck}
                         type="number"
@@ -144,7 +186,7 @@ class Temporizador extends Component {
                         placeholder="00"
                         onChange={this.handleChange}
                     />
-                </div>
+                </div >
             )
         }
 
@@ -153,7 +195,10 @@ class Temporizador extends Component {
 
     render() {
         return (
+
+
             <div className="Cronometro">
+
                 {this.getCountdownInput()}
 
                 {this.getCountdown()}
